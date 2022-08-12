@@ -8,8 +8,19 @@ pipeline {
   }
   stages {
     stage('Build') {
-      steps {
-        sh 'npm install'
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'npm install'
+          }
+        }
+
+        stage('') {
+          steps {
+            echo 'Hello builder'
+          }
+        }
+
       }
     }
 
@@ -24,7 +35,7 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('error') {
           steps {
             input 'Select to continue'
           }
